@@ -1,18 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import { Bot, Plus, Settings, MessageSquare, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import ChatContainer from "./components/ChatContainer";
 
-function App() {
+export default function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
-    <>
-      <div className="App"> 
-        This is the RAGorithm project, a Retrieval-Augmented Generation (RAG) system built with React and Node.js. The project aims to enhance the capabilities of language models by integrating retrieval mechanisms, allowing for more accurate and context-aware responses. The frontend is developed using React, while the backend is powered by Node.js, providing a seamless and efficient user experience.
-      </div>
-    </>
-  )
-}
+    <div className="app-shell">
+      {/* ── Sidebar ─────────────────────────────────────────── */}
+      <aside className={`sidebar ${!sidebarOpen ? "collapsed" : ""}`}>
+        <div className="sidebar-header">
+          <button className="new-chat-btn">
+            <div className="new-chat-icon">
+              <Bot size={15} />
+            </div>
+            <span style={{ flex: 1, textAlign: "left" }}>New Chat</span>
+            <Plus size={15} style={{ color: "var(--text-muted)" }} />
+          </button>
+        </div>
 
-export default App
+        <div className="sidebar-history">
+          <div className="history-label">Today</div>
+          {[
+            "Binary Search Implementation",
+            "Graph BFS vs DFS",
+            "Merge Sort Complexity",
+          ].map((t) => (
+            <button key={t} className="history-item">
+              <MessageSquare size={14} style={{ flexShrink: 0 }} />
+              {t}
+            </button>
+          ))}
+        </div>
+
+        <div className="sidebar-footer">
+          <button className="settings-btn">
+            <Settings size={15} />
+            Settings
+          </button>
+        </div>
+      </aside>
+
+      {/* ── Main ────────────────────────────────────────────── */}
+      <main className="main-panel">
+        <header className="topbar">
+          <button className="icon-btn" onClick={() => setSidebarOpen((o) => !o)}>
+            {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeftOpen size={18} />}
+          </button>
+
+          <div className="topbar-title">
+            RAG<span>orithm</span>
+          </div>
+
+          {/* right-side spacer to keep title centered */}
+          {/* <div style={{ width: 34 }} /> */}
+        </header>
+
+        <ChatContainer />
+      </main>
+    </div>
+  );
+}
