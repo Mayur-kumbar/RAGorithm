@@ -113,7 +113,7 @@ algochat/
 ### 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/your-username/ragorithm.git
+git clone https://github.com/Mayur-kumbar/RAGorithm
 cd ragorithm
 ```
 
